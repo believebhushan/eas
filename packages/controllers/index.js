@@ -15,13 +15,12 @@ fs.readdir(directoryPath, function (err, files) {
         const routeName = file.split('.js');
         const fileName = require(`../apis/${file}`);
         const method = file.split('_')[0];
-        console.log(routeName,"method")
 
         const handleApi = async (req, res) => {
             try {
-                // const params = {
-                //     request_api_path: routeName[0],
-                // };
+                const params = {
+                    request_api_path: routeName[0],
+                };
 
                 // const headers = {
                 //     'authorization': req.headers.authorization || '',
@@ -35,17 +34,16 @@ fs.readdir(directoryPath, function (err, files) {
                 // const data = await axios.get(url, { params, headers }).then(response => {
                 //     return response.data;
                 // });
+                const isAuthorized=true
 
-                // if (data?.isAuthorized === true) {
-                //     const request = { ...req.query, ...req.body, ...data.setters }
-                //     return res.json(await fileName(request, res));
-                // } else {
-                //     return res.status(data.status_code).json(data);
-                // }
+                if (isAuthorized) {
+                    const request = { ...req.query, ...req.body, }
+                    return res.json(await fileName(request, res));
+                } else {
+                    return res.status(data.status_code).json(data);
+                }
 
-                    const request = { ...req.query, ...req.body }
-                    console.log(request,"request")
-                    return res.json(await fileName(request, res))
+            
             }
             catch (err) {
                console.log(err,"errerr")
@@ -55,7 +53,7 @@ fs.readdir(directoryPath, function (err, files) {
             }
         };
 
-        if ([ 'update', 'delete'].includes(method)) {
+        if ([ 'update', 'delete','create'].includes(method)) {
             app.post(`/${routeName[0]}`, async (req, res) => {
                 handleApi(req, res);
             });

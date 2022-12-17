@@ -21,7 +21,7 @@ const Client=()=>{
         }
     }
 
-    const findById= async(id)=>{
+    const findById= async({relationName,id})=>{
         const response={data:{},error:{}}
         try {
             const res= await supabase.from(relationName).select().eq("id",id)
