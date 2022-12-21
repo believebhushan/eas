@@ -1,0 +1,29 @@
+There are three end points.
+
+A. Createing Attendance
+
+  endpoint :  /app/create_attendance (post request)
+ Params:
+ employee_id:uuid
+ 
+B. CreateLeave
+
+  endpoint :  /app/create_leave
+
+params:
+leave_date (date)
+employee_id (uuid)
+
+C.GetAttendanceTracks
+
+ endpoint :  /app/get_attendance_tracks
+ 
+params:
+employee_id(uuid)
+from_date(date)
+to_date(date)
+
+
+
+
+ 
